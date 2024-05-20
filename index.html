@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="initialContent">
+            <h1 class="header_text">Do you wanna go out with me?</h1>
+            <h1 class="header_text">Are you free tomorrow?</h1>
+            <div class="gif_container">
+                <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ2JiZDR0a3lvMWF4OG8yc3p6Ymdvd3g2d245amdveDhyYmx6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute animated illustration">
+            </div>
+            <div class="buttons">
+                <button class="btn" id="yesButton" onclick="showYesContent()">Yes</button>
+                <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">No</button>
+            </div>
+        </div>
+        <div id="yesContent" style="display: none;">
+            <h1 class="header_text">Yay! Let's go out!</h1>
+            <div class="gif_container">
+                <iframe src="https://giphy.com/embed/qa98eSMXpmBH4qgMMB" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                <p><a href="https://giphy.com/gifs/TheCheekyPanda-qa98eSMXpmBH4qgMMB">via GIPHY</a></p>
+            </div>
+            <div class="video_container">
+                <audio id="audioPlayer" src="C:\Users\vibhu\OneDrive\Desktop\me.mp3" controls></audio>
+            </div>
+            <button class="btn" onclick="resetContent()">Reset</button>
+        </div>
+        <div id="noContent" style="display: none;">
+            <h1 class="header_text">Oh no! Why not?</h1>
+            <div class="gif_container">
+                <img src="https://media.giphy.com/media/3ohs4BSacFKI7A717y/giphy.gif" alt="Sad animated illustration">
+            </div>
+            <button class="btn" onclick="resetContent()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        var audioPlayer;
+
+        function showYesContent() {
+            document.getElementById('initialContent').style.display = 'none';
+            document.getElementById('yesContent').style.display = 'block';
+            // Play audio
+            audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.play();
+            // Start confetti effect
+            startConfetti();
+        }
+
+        function showNoContent() {
+            document.getElementById('initialContent').style.display = 'none';
+            document.getElementById('noContent').style.display = 'block';
+        }
+
+        function resetContent() {
+            document.getElementById('yesContent').style.display = 'none';
+            document.getElementById('noContent').style.display = 'none';
+            document.getElementById('initialContent').style.display = 'block';
+            // Stop audio
+            if (audioPlayer) {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            }
+        }
+
+        function moveButton() {
+            const button = document.getElementById('noButton');
+            const container = document.querySelector('.container');
+
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = button.getBoundingClientRect();
+
+            const maxX = containerRect.width - buttonRect.width;
+            const maxY = containerRect.height - buttonRect.height;
+
+            let newX = Math.random() * maxX;
+            let newY = Math.random() * maxY;
+
+            // Ensure the button stays within the viewport
+            newX = Math.max(0, Math.min(newX, maxX));
+            newY = Math.max(0, Math.min(newY, maxY));
+
+            button.style.transform = `translate(${newX}px, ${newY}px)`;
+        }
+
+        // Confetti effect
+        function startConfetti() {
+            var duration = 5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: 0.5, y: 0.5 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
