@@ -6,6 +6,11 @@
     <title>Interactive Page</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            background-color: hotpink;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -43,23 +48,23 @@
     <script>
         var audioPlayer;
 
-function showYesContent() {
-    document.getElementById('initialContent').style.display = 'none';
-    document.getElementById('yesContent').style.display = 'block';
-    // Get audio player reference
-    audioPlayer = document.getElementById('audioPlayer');
-    // Start confetti effect
-    startConfetti();
+        function showYesContent() {
+            document.getElementById('initialContent').style.display = 'none';
+            document.getElementById('yesContent').style.display = 'block';
+            // Get audio player reference
+            audioPlayer = document.getElementById('audioPlayer');
+            // Start confetti effect
+            startConfetti();
 
-    // Add a click event listener to the audio player
-    audioPlayer.addEventListener('click', function() {
-        // Play audio when the user clicks the audio player
-        audioPlayer.play()
-            .catch(function(error) {
-                console.error('Failed to play audio:', error);
+            // Add a click event listener to the audio player
+            audioPlayer.addEventListener('click', function() {
+                // Play audio when the user clicks the audio player
+                audioPlayer.play()
+                    .catch(function(error) {
+                        console.error('Failed to play audio:', error);
+                    });
             });
-    });
-}
+        }
 
         function showNoContent() {
             document.getElementById('initialContent').style.display = 'none';
