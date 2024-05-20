@@ -47,6 +47,7 @@
 
     <script>
         var audioPlayer;
+        var noButtonMoved = false; // Flag to track if the "No" button has been moved
 
         function showYesContent() {
             document.getElementById('initialContent').style.display = 'none';
@@ -75,6 +76,10 @@
             document.getElementById('yesContent').style.display = 'none';
             document.getElementById('noContent').style.display = 'none';
             document.getElementById('initialContent').style.display = 'block';
+            // Reset the "No" button position
+            noButtonMoved = false;
+            const noButton = document.getElementById('noButton');
+            noButton.style.transform = 'none';
             // Stop audio
             if (audioPlayer) {
                 audioPlayer.pause();
@@ -83,23 +88,26 @@
         }
 
         function moveButton() {
-            const button = document.getElementById('noButton');
-            const container = document.querySelector('.container');
+            if (!noButtonMoved) { // Check if the "No" button hasn't been moved yet
+                const button = document.getElementById('noButton');
+                const container = document.querySelector('.container');
 
-            const containerRect = container.getBoundingClientRect();
-            const buttonRect = button.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                const buttonRect = button.getBoundingClientRect();
 
-            const maxX = containerRect.width - buttonRect.width;
-            const maxY = containerRect.height - buttonRect.height;
+                const maxX = containerRect.width - buttonRect.width;
+                const maxY = containerRect.height - buttonRect.height;
 
-            let newX = Math.random() * maxX;
-            let newY = Math.random() * maxY;
+                let newX = Math.random() * maxX;
+                let newY = Math.random() * maxY;
 
-            // Ensure the button stays within the viewport
-            newX = Math.max(0, Math.min(newX, maxX));
-            newY = Math.max(0, Math.min(newY, maxY));
+                // Ensure the button stays within the viewport
+                newX = Math.max(0, Math.min(newX, maxX));
+                newY = Math.max(0, Math.min(newY, maxY));
 
-            button.style.transform = `translate(${newX}px, ${newY}px)`;
+                button.style.transform = `translate(${newX}px, ${newY}px)`;
+                noButtonMoved = true; // Set the flag to true after moving the button
+            }
         }
 
         // Confetti effect
