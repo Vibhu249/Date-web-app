@@ -30,7 +30,8 @@ This is a simple interactive web page that prompts the user with a question and 
 
 - [canvas-confetti](https://www.npmjs.com/package/canvas-confetti): A JavaScript library for creating confetti effects.
 
-  ![Snip](https://raw.githubusercontent.com/Vibhu249/Date-web-app/blob/main/Snip.png)
+  ![Snip](https://raw.githubusercontent.com/Vibhu249/Date-web-app/main/Snip.png)
+
   
 ## Contributing
 
